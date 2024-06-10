@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = [
+    'https://learn-academy.onrender.com'
+]
+
+# https://shikboacademy.netlify.app/
 # Application definition
 
 INSTALLED_APPS = [
