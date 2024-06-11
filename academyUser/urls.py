@@ -5,6 +5,8 @@ router = DefaultRouter()
 
 router.register('list', views.UserViewSet)
 router.register('contact/list', views.ContactView)
+router.register('course/list', views.CourseView)
+
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -22,4 +24,12 @@ urlpatterns = [
     #  contact
     path('contact/', views.ContactAddView.as_view(), name='contact'),
 
+    # Course
+
+    path('create/', views.CourseCreateView.as_view(), name='create'),
+    path('<int:pk>/update/', views.CourseUpdateView.as_view(), name='update'),
+    path('<int:pk>/delete/', views.CourseDestroyView.as_view(), name='delete'),
+
 ]
+
+

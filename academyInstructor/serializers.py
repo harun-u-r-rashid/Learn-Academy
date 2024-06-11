@@ -8,13 +8,13 @@ class InstructorSerializer(serializers.ModelSerializer):
                 fields = '__all__'
 
 
-class CourseSerializer(serializers.ModelSerializer):
-        def countCourse(self, instance):
-                total = models.Course.objects.filter(course=instance).count()
-                return total
+# class CourseSerializer(serializers.ModelSerializer):
+#         def countCourse(self, instance):
+#                 total = models.Course.objects.filter(course=instance).count()
+#                 return total
         
-        class Meta:
-                model = models.Course
-                fields = '__all__'
+#         class Meta:
+#                 model = models.Course
+#                 fields = '__all__'
 
         

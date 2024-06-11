@@ -42,7 +42,7 @@ class UserRegistrationApiView(APIView):
             user = serializer.save()
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
-            confirm_link = f"https://learn-academy.onrender.com/user/active/{uid}/{token}"
+            confirm_link = f"http://127.0.0.1:8000/user/active/{uid}/{token}"
             email_subject = "Confirm Your Email"
             email_body = render_to_string('confirm_email.html', {'confirm_link' : confirm_link})
             
@@ -67,7 +67,7 @@ def activate(request, uid64, token):
         # http://127.0.0.1:5500/frontEnd/login.html
         # http://127.0.0.1:5500/login
         # https://learn-academy.onrender.com/
-        return redirect('https://learn-academy.onrender.com/login')
+        return redirect('http://127.0.0.1:5500/login')
     else:
         return redirect('register')
     
@@ -130,8 +130,6 @@ class RequestPasswordReset(generics.GenericAPIView):
              return Response("User not found")
     
 
-
-
 class ResetPassword(generics.GenericAPIView):
     serializer_class = serializers.ResetPasswordSerializer
     permission_classes = [AllowAny]
@@ -143,6 +141,9 @@ class ResetPassword(generics.GenericAPIView):
         except (TypeError, ValueError, OverflowError, models.Account.DoesNotExist):
             return Response({'error': 'Invalid user ID'}, status=status.HTTP_400_BAD_REQUEST)
         
+
+        
+
         if not default_token_generator.check_token(user, token):
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
         
@@ -171,3 +172,32 @@ class ContactAddView(APIView):
         return Response({"error":"Failed to send your query!"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+# Course view
+from .serializers import CourseSerializer
+
+class CourseView(viewsets.ModelViewSet):
+        queryset = models.Course.objects.all()
+        serializer_class = CourseSerializer
+
+
+class CourseCreateView(generics.CreateAPIView):
+        serializer_class = CourseSerializer
+        # permission_classes = [IsAuthenticated]
+
+        def perform_create(self, serializer):
+                new_course = serializer.save()
+                new_course.save()
+
+
+class CourseUpdateView(generics.UpdateAPIView):
+        queryset = models.Course.objects.all()
+        serializer_class = CourseSerializer
+        # permission_classes
+
+        def perform_update(self, serializer):
+                update_course = serializer.save()
+
+
+class CourseDestroyView(generics.DestroyAPIView):
+        queryset  = models.Course.objects.all()
+        

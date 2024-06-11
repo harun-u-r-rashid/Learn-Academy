@@ -9,3 +9,4 @@ admin.site.register(models.Account, AccountAdmin)
 
 admin.site.register(models.Contact)
 
+admin.site.register(models.Course)

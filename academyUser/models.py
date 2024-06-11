@@ -101,3 +101,16 @@ class Contact(models.Model):
     
     
 
+# Course
+class Course(models.Model):
+        account = models.ForeignKey(Account, on_delete=models.CASCADE)
+        title = models.CharField(max_length=100)
+        description = models.TextField(max_length=200)
+        price = models.IntegerField()
+        image = models.ImageField(upload_to='course/', blank=True, null=True)
+        
+        created_at = models.DateTimeField(auto_now_add=True)
+
+        def __str__(self):
+                return f"{self.title}"
+      

@@ -88,3 +88,18 @@ class ContactSerializer(serializers.ModelSerializer):
        class Meta:
               model = models.Contact
               fields = '__all__'
+
+
+
+#Course Serializer
+
+class CourseSerializer(serializers.ModelSerializer):
+        def countCourse(self, instance):
+                total = models.Course.objects.filter(course=instance).count()
+                return total
+        
+        class Meta:
+                model = models.Course
+                fields = '__all__'
+
+   

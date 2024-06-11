@@ -10,17 +10,17 @@ class Instructor(models.Model):
                 return f"{self.account.username}"
         
 
-class Course(models.Model):
-        instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
-        title = models.CharField(max_length=100)
-        description = models.TextField(max_length=200)
-        price = models.IntegerField()
-        image = models.ImageField(upload_to='course/', blank=True, null=True)
+# class Course(models.Model):
+#         instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
+#         title = models.CharField(max_length=100)
+#         description = models.TextField(max_length=200)
+#         price = models.IntegerField()
+#         image = models.ImageField(upload_to='course/', blank=True, null=True)
         
-        created_at = models.DateTimeField(auto_now_add=True)
+#         created_at = models.DateTimeField(auto_now_add=True)
 
-        def __str__(self):
-                return f"{self.title}"
+#         def __str__(self):
+#                 return f"{self.title}"
         
         
 
