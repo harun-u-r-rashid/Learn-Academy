@@ -113,4 +113,16 @@ class Course(models.Model):
 
         def __str__(self):
                 return f"{self.title}"
-      
+    
+# Module 
+
+class Module(models.Model):
+     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+     title = models.CharField(max_length=100)
+     url = models.URLField()
+
+     def __str__(self):
+          return f"{self.title}"
+     
+
+     

@@ -1,7 +1,7 @@
 
 from django.db import models
 
-from academyUser.models import Account, Course
+from academyUser.models import Account
 
 
 class Student(models.Model):
@@ -10,5 +10,6 @@ class Student(models.Model):
         def __str__(self):
                 return f"{self.account.username}"
         
- 
+
+
         

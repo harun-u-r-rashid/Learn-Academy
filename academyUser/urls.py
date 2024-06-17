@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register('list', views.UserViewSet)
 router.register('contact/list', views.ContactView)
 router.register('course/list', views.CourseView)
+router.register('module/list', views.ModuleView)
 
 
 urlpatterns = [
@@ -26,9 +27,14 @@ urlpatterns = [
 
     # Course
 
-    path('create/', views.CourseCreateView.as_view(), name='create'),
-    path('<int:pk>/update/', views.CourseUpdateView.as_view(), name='update'),
-    path('<int:pk>/delete/', views.CourseDestroyView.as_view(), name='delete'),
+    path('course_create/', views.CourseCreateView.as_view(), name='course_create'),
+    path('<int:pk>/course_update/', views.CourseUpdateView.as_view(), name='course_update'),
+    path('<int:pk>/course_delete/', views.CourseDestroyView.as_view(), name='course_delete'),
+
+    # Module
+    path('module_create/', views.ModuleCreateView.as_view(), name='module_create'),
+    path('<int:pk>/module_update/', views.ModuleUpdateView.as_view(), name='module_update'),
+    path('<int:pk>/module_delete/', views.ModuleDestroyView.as_view(), name='module_delete'),
 
 ]
 

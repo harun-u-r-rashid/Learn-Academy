@@ -102,4 +102,19 @@ class CourseSerializer(serializers.ModelSerializer):
                 model = models.Course
                 fields = '__all__'
 
+
+
+# Module Serializer
+
+class ModuleSerializer(serializers.ModelSerializer):
+       def countModule(self, instance):
+              total = models.Module.objects.filter(module=instance).count()
+              return total
+       
+       class Meta:
+              model = models.Module
+              fields = '__all__'
+
+              
+
    

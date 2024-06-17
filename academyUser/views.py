@@ -204,3 +204,35 @@ class CourseUpdateView(generics.UpdateAPIView):
 class CourseDestroyView(generics.DestroyAPIView):
         queryset  = models.Course.objects.all()
         
+
+
+# Module Views
+
+class ModuleView(viewsets.ModelViewSet):
+     queryset = models.Module.objects.all()
+     serializer_class = serializers.ModuleSerializer
+     permission_classes = [AllowAny]
+
+    
+class ModuleCreateView(generics.CreateAPIView):
+     serializer_class = serializers.ModuleSerializer
+    #  permission_classes = [IsAdminUser]
+     def perform_create(self, serializer):
+          create_module = serializer.save()
+          create_module.save()
+
+    
+class ModuleUpdateView(generics.UpdateAPIView):
+     queryset = models.Module.objects.all()
+     serializer_class = serializers.ModuleSerializer
+    #  permission_classes = [IsAdminUser]
+
+     def perform_update(self, serializer):
+          update_module = serializer.save()
+
+
+class ModuleDestroyView(generics.DestroyAPIView):
+     queryset = models.Module.objects.all()
+
+
+     
