@@ -1,7 +1,7 @@
 
 from django.db import models
 
-from academyUser.models import Account
+from academyUser.models import Account, Course
 
 
 class Student(models.Model):
@@ -9,4 +9,6 @@ class Student(models.Model):
         image = models.ImageField(upload_to='student/', blank=True, null=True)
         def __str__(self):
                 return f"{self.account.username}"
+        
+ 
         
