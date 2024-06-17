@@ -9,7 +9,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 # for sending email
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -22,18 +22,21 @@ from django.utils.encoding import force_str
 class UserViewSet(viewsets.ModelViewSet):
         queryset = models.Account.objects.all()
         serializer_class = serializers.UserSerializer
+        permission_classes = [AllowAny]
 
 # Contact ja ache sob view korabe
 
 class ContactView(viewsets.ModelViewSet):
     queryset = models.Contact.objects.all()
     serializer_class = serializers.ContactSerializer 
+    permission_classes = [AllowAny]
 
 
 
 
 class UserRegistrationApiView(APIView):
     serializer_class = serializers.UserRegSerializer
+    permission_classes = [AllowAny]
     
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -103,8 +106,6 @@ class UserLogoutView(APIView):
 
 # reset password
 
-
-
 class RequestPasswordReset(generics.GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = serializers.PasswordResetSerializer
@@ -165,6 +166,7 @@ class ResetPassword(generics.GenericAPIView):
 
 # Contact add korbe
 class ContactAddView(APIView):
+    permission_classes = [AllowAny]
     def post(self,request):
         serializer = serializers.ContactSerializer(data=request.data)
         if serializer.is_valid():
@@ -174,16 +176,16 @@ class ContactAddView(APIView):
 
 
 # Course view
-from .serializers import CourseSerializer
 
 class CourseView(viewsets.ModelViewSet):
         queryset = models.Course.objects.all()
-        serializer_class = CourseSerializer
+        serializer_class = serializers.CourseSerializer
+        permission_classes = [AllowAny]
 
 
 class CourseCreateView(generics.CreateAPIView):
-        serializer_class = CourseSerializer
-        # permission_classes = [IsAuthenticated]
+        serializer_class = serializers.CourseSerializer
+        permission_classes = [IsAdminUser]
 
         def perform_create(self, serializer):
                 new_course = serializer.save()
@@ -192,8 +194,8 @@ class CourseCreateView(generics.CreateAPIView):
 
 class CourseUpdateView(generics.UpdateAPIView):
         queryset = models.Course.objects.all()
-        serializer_class = CourseSerializer
-        # permission_classes
+        serializer_class = serializers.CourseSerializer
+        permission_classes = [IsAdminUser]
 
         def perform_update(self, serializer):
                 update_course = serializer.save()
